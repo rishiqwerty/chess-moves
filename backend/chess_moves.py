@@ -9,7 +9,8 @@ def rook_valid_moves(current_path, position_of_other_pieces):
             vertical_all_possible_moves.append(new_path)
         else:
             if new_path != current_path:
-                vertical_all_possible_moves = [new_path,]
+                # vertical_all_possible_moves = [new_path,]
+                vertical_all_possible_moves.append(new_path)
                 break
     # print(current_path, vertical_all_possible_moves)
 
@@ -19,7 +20,8 @@ def rook_valid_moves(current_path, position_of_other_pieces):
             horizontal_all_possible_moves.append(new_path)
         else:
             if new_path != current_path:
-                horizontal_all_possible_moves = [new_path,]
+                # horizontal_all_possible_moves = [new_path,]
+                horizontal_all_possible_moves.append(new_path)
                 break
     # horizontal_all_possible_moves = [chr(i) + current_path[1] for i in range(65, 73)]
 
@@ -52,7 +54,8 @@ def bishop_valid_moves(current_path, all_peices_position):
             if horizontal_forward_value < 9:
                 if chr(i) + str(horizontal_forward_value) in all_peices_position:
                     stop_forward_value = True
-                    upward_right = [chr(i) + str(horizontal_forward_value),]
+                    # upward_right = [chr(i) + str(horizontal_forward_value),]
+                    upward_right.append(chr(i) + str(horizontal_forward_value))
                 else:
                     upward_right.append(chr(i) + str(horizontal_forward_value))
 
@@ -61,7 +64,8 @@ def bishop_valid_moves(current_path, all_peices_position):
             if horizontal_downward_value > 0:
                 if chr(i) + str(horizontal_forward_value) in all_peices_position:
                     stop_downward_value = True
-                    downward_right = [chr(i) + str(horizontal_downward_value)]
+                    # downward_right = [chr(i) + str(horizontal_downward_value)]
+                    downward_right.append(chr(i) + str(horizontal_downward_value))
                 else:
                     downward_right.append(chr(i) + str(horizontal_downward_value))
 
@@ -88,7 +92,8 @@ def bishop_valid_moves(current_path, all_peices_position):
         if not stop_forward_value:
             if ver_forward_value < 9:
                 if chr(j) + str(ver_forward_value) in all_peices_position:
-                    upward_left = [chr(j) + str(ver_forward_value),]
+                    # upward_left = [chr(j) + str(ver_forward_value),]
+                    upward_left.append(chr(j) + str(ver_forward_value))
                     stop_forward_value = True
                 else:
                     upward_left.append(chr(j) + str(ver_forward_value))
@@ -96,7 +101,8 @@ def bishop_valid_moves(current_path, all_peices_position):
         if not stop_downward_value:
             if ver_downward_value > 0:
                 if chr(j) + str(ver_downward_value) in all_peices_position:
-                    downward_left = [chr(j) + str(ver_downward_value)]
+                    # downward_left = [chr(j) + str(ver_downward_value)]
+                    downward_left.append(chr(j) + str(ver_downward_value))
                     stop_downward_value = True
                 else:
                     downward_left.append(chr(j) + str(ver_downward_value))
@@ -114,7 +120,7 @@ def bishop_valid_moves(current_path, all_peices_position):
         upward_left.remove(current_path)
     except:
         pass
-    print("This--",upward_right, downward_right, upward_left, downward_left)
+    # print("This--",upward_right, downward_right, upward_left, downward_left)
     
     return upward_right, downward_right, upward_left, downward_left
 
@@ -160,8 +166,9 @@ def valid_moves(moving_peice, all_peices_position):
     rook_next_moves = rook_valid_moves(rook_position, [queen_position,knight_position,bishop_position])
     rook_next_moves = [item for sublist in rook_next_moves for item in sublist]
     bishop_next_moves = bishop_valid_moves(bishop_position, [queen_position,rook_position, knight_position])
-    knight_next_moves = knight_valid_moves(knight_position)
     bishop_next_moves = [item for sublist in bishop_next_moves for item in sublist]
+    # print("Bishop next", bishop_next_moves)
+    knight_next_moves = knight_valid_moves(knight_position)
     queen_next_moves = queen_valid_moves(queen_position,[bishop_position,rook_position, knight_position])
     if moving_peice == 'queen':
         playable_pieces = queen_next_moves
@@ -172,6 +179,7 @@ def valid_moves(moving_peice, all_peices_position):
     if moving_peice == 'rook':
         playable_pieces = rook_next_moves
 
+    # print(queen_next_moves)
     for i in rook_next_moves:
         if i in playable_pieces and moving_peice!='rook':
             playable_pieces.remove(i)
