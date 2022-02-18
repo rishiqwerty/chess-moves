@@ -158,8 +158,10 @@ def valid_moves(moving_peice, all_peices_position):
     playable_pieces = []
 
     rook_next_moves = rook_valid_moves(rook_position, [queen_position,knight_position,bishop_position])
+    rook_next_moves = [item for sublist in rook_next_moves for item in sublist]
     bishop_next_moves = bishop_valid_moves(bishop_position, [queen_position,rook_position, knight_position])
     knight_next_moves = knight_valid_moves(knight_position)
+    bishop_next_moves = [item for sublist in bishop_next_moves for item in sublist]
     queen_next_moves = queen_valid_moves(queen_position,[bishop_position,rook_position, knight_position])
     if moving_peice == 'queen':
         playable_pieces = queen_next_moves
@@ -192,4 +194,4 @@ def valid_moves(moving_peice, all_peices_position):
 #         "Knight": "F2",
 #     }
 # }
-# valid_moves('queen',a)
+# print(valid_moves('rook',a))
